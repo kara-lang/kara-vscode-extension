@@ -1,0 +1,25 @@
+{
+    "name": "kara",
+    "displayName": "Kara",
+    "description": "Kara programming language support for Visual Studio Code",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.62.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "kara",
+            "aliases": ["Kara", "kara"],
+            "extensions": [".kara"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "kara",
+            "scopeName": "source.kara",
+            "path": "./syntaxes/kara.tmLanguage.json"
+        }]
+    }
+}
