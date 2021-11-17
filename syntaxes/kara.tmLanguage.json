@@ -512,7 +512,7 @@
 					"include": "#precedencegroup"
 				},
 				{
-					"include": "#protocol"
+					"include": "#trait"
 				},
 				{
 					"include": "#type"
@@ -723,7 +723,7 @@
 							"name": "punctuation.definition.identifier.kara"
 						}
 					},
-					"end": "(?<=\\})|$(?# functions in protocol declarations or generated interfaces have no body)",
+					"end": "(?<=\\})|$(?# functions in trait declarations or generated interfaces have no body)",
 					"name": "meta.definition.function.kara",
 					"patterns": [
 						{
@@ -996,7 +996,7 @@
 					"name": "meta.import.kara",
 					"patterns": [
 						{
-							"begin": "\\G(?!;|$|//|/\\*)(?:(typealias|struct|class|actor|enum|protocol|var|func)\\s+)?",
+							"begin": "\\G(?!;|$|//|/\\*)(?:(struct|enum|trait|var|func)\\s+)?",
 							"beginCaptures": {
 								"1": {
 									"name": "storage.modifier.kara"
@@ -1392,8 +1392,8 @@
 						}
 					]
 				},
-				"protocol": {
-					"begin": "\\b(protocol)\\s+((?<q>`?)[\\p{L}_][\\p{L}_\\p{N}\\p{M}]*(\\k<q>))",
+				"trait": {
+					"begin": "\\b(trait)\\s+((?<q>`?)[\\p{L}_][\\p{L}_\\p{N}\\p{M}]*(\\k<q>))",
 					"beginCaptures": {
 						"1": {
 							"name": "storage.type.$1.kara"
@@ -1409,7 +1409,7 @@
 						}
 					},
 					"end": "(?<=\\})",
-					"name": "meta.definition.type.protocol.kara",
+					"name": "meta.definition.type.trait.kara",
 					"patterns": [
 						{
 							"include": "#comments"
@@ -1437,10 +1437,10 @@
 							"name": "meta.definition.type.body.kara",
 							"patterns": [
 								{
-									"include": "#protocol-method"
+									"include": "#trait-function"
 								},
 								{
-									"include": "#protocol-initializer"
+									"include": "#trait-initializer"
 								},
 								{
 									"include": "#associated-type"
@@ -1453,7 +1453,7 @@
 					],
 					"repository": {
 						"associated-type": {
-							"begin": "\\b(associatedtype)\\s+((?<q>`?)[\\p{L}_][\\p{L}_\\p{N}\\p{M}]*(\\k<q>))\\s*",
+							"begin": "\\b(type)\\s+((?<q>`?)[\\p{L}_][\\p{L}_\\p{N}\\p{M}]*(\\k<q>))\\s*",
 							"beginCaptures": {
 								"1": {
 									"name": "keyword.other.declaration-specifier.kara"
@@ -1483,7 +1483,7 @@
 								}
 							]
 						},
-						"protocol-initializer": {
+						"trait-initializer": {
 							"begin": "(?<!\\.)\\b(init[?!]*(?# only one is valid, but we want the in⇥ snippet to produce something that looks good))\\s*(?=\\(|<)",
 							"beginCaptures": {
 								"1": {
@@ -1525,7 +1525,7 @@
 											"name": "punctuation.section.function.end.kara"
 										}
 									},
-									"name": "invalid.illegal.function-body-not-allowed-in-protocol.kara",
+									"name": "invalid.illegal.function-body-not-allowed-in-trait.kara",
 									"patterns": [
 										{
 											"include": "$self"
@@ -1534,7 +1534,7 @@
 								}
 							]
 						},
-						"protocol-method": {
+						"trait-function": {
 							"begin": "(?x)\n\t\t\t\t\t\t\t\t\\b\n\t\t\t\t\t\t\t\t(func)\n\t\t\t\t\t\t\t\t\\s+\n\t\t\t\t\t\t\t\t(\n\t\t\t\t\t\t\t\t\t(?<q>`?)[\\p{L}_][\\p{L}_\\p{N}\\p{M}]*(\\k<q>)\n\t\t  \t\t\t\t\t\t  | (?:\n\t\t  \t\t\t\t\t\t\t\t(\n\t\t  \t\t\t\t\t\t\t\t\t(?<oph>\t\t\t\t\t\t\t\t# operator-head\n\t\t  \t\t\t\t\t\t\t\t\t\t[/=\\-+!*%<>&|^~?]\n\t\t  \t\t\t\t\t\t\t\t\t  | [\\x{00A1}-\\x{00A7}]\n\t\t  \t\t\t\t\t\t\t\t\t  | [\\x{00A9}\\x{00AB}]\n\t\t  \t\t\t\t\t\t\t\t\t  | [\\x{00AC}\\x{00AE}]\n\t\t  \t\t\t\t\t\t\t\t\t  | [\\x{00B0}-\\x{00B1}\\x{00B6}\\x{00BB}\\x{00BF}\\x{00D7}\\x{00F7}]\n\t\t  \t\t\t\t\t\t\t\t\t  | [\\x{2016}-\\x{2017}\\x{2020}-\\x{2027}]\n\t\t  \t\t\t\t\t\t\t\t\t  | [\\x{2030}-\\x{203E}]\n\t\t  \t\t\t\t\t\t\t\t\t  | [\\x{2041}-\\x{2053}]\n\t\t  \t\t\t\t\t\t\t\t\t  | [\\x{2055}-\\x{205E}]\n\t\t  \t\t\t\t\t\t\t\t\t  | [\\x{2190}-\\x{23FF}]\n\t\t  \t\t\t\t\t\t\t\t\t  | [\\x{2500}-\\x{2775}]\n\t\t  \t\t\t\t\t\t\t\t\t  | [\\x{2794}-\\x{2BFF}]\n\t\t  \t\t\t\t\t\t\t\t\t  | [\\x{2E00}-\\x{2E7F}]\n\t\t  \t\t\t\t\t\t\t\t\t  | [\\x{3001}-\\x{3003}]\n\t\t  \t\t\t\t\t\t\t\t\t  | [\\x{3008}-\\x{3030}]\n\t\t  \t\t\t\t\t\t\t\t\t)\n\t\t  \t\t\t\t\t\t\t\t\t(\n\t\t  \t\t\t\t\t\t\t\t\t\t\\g<oph>\n\t\t  \t\t\t\t\t\t\t\t\t  | (?<opc>\t\t\t\t\t\t\t\t# operator-character\n\t\t  \t\t\t\t\t\t\t\t\t\t\t[\\x{0300}-\\x{036F}]\n\t\t  \t\t\t\t\t\t\t\t\t\t  | [\\x{1DC0}-\\x{1DFF}]\n\t\t  \t\t\t\t\t\t\t\t\t\t  | [\\x{20D0}-\\x{20FF}]\n\t\t  \t\t\t\t\t\t\t\t\t\t  | [\\x{FE00}-\\x{FE0F}]\n\t\t  \t\t\t\t\t\t\t\t\t\t  | [\\x{FE20}-\\x{FE2F}]\n\t\t  \t\t\t\t\t\t\t\t\t\t  | [\\x{E0100}-\\x{E01EF}]\n\t\t  \t\t\t\t\t\t\t\t\t\t)\n\t\t  \t\t\t\t\t\t\t\t\t)*\n\t\t  \t\t\t\t\t\t\t\t)\n\t\t  \t\t\t\t\t\t\t  | ( \\. ( \\g<oph> | \\g<opc> | \\. )+ )\t\t\t# Dot operators\n\t\t  \t\t\t\t\t\t\t)\n\t\t  \t\t\t\t\t\t)\n\t\t\t\t\t\t\t\t\\s*\n\t\t\t\t\t\t\t\t(?=\\(|<)\n\t\t\t\t\t\t\t",
 							"beginCaptures": {
 								"1": {
@@ -1582,7 +1582,7 @@
 											"name": "punctuation.section.function.end.kara"
 										}
 									},
-									"name": "invalid.illegal.function-body-not-allowed-in-protocol.kara",
+									"name": "invalid.illegal.function-body-not-allowed-in-trait.kara",
 									"patterns": [
 										{
 											"include": "$self"
@@ -2326,15 +2326,15 @@
 					"match": "(?<!\\.)\\b(do)\\b(\\s*)"
 				},
 				{
-					"match": "(?<!\\.)\\b(?:associatedtype|let|operator|typealias|var)\\b",
+					"match": "(?<!\\.)\\b(?:type|let|operator|var)\\b",
 					"name": "keyword.other.declaration-specifier.kara"
 				},
 				{
-					"match": "(?<!\\.)\\b(class|enum|extension|precedencegroup|protocol|struct|actor)\\b",
+					"match": "(?<!\\.)\\b(enum|extension|precedencegroup|trait|struct)\\b",
 					"name": "storage.type.$1.kara"
 				},
 				{
-					"match": "(?<!\\.)\\b(?:inout|static|final|lazy|mutating|nonmutating|optional|indirect|required|override|dynamic|convenience|infix|prefix|postfix)\\b",
+					"match": "(?<!\\.)\\b(?:inout|static|mutating|nonmutating|indirect|infix|prefix|postfix)\\b",
 					"name": "storage.modifier.kara"
 				},
 				{
@@ -2342,24 +2342,16 @@
 					"name": "storage.type.function.kara"
 				},
 				{
-					"match": "(?<!\\.)\\b(?:fileprivate|private|internal|public|open)\\b",
+					"match": "(?<!\\.)\\b(?:private|public)\\b",
 					"name": "keyword.other.declaration-specifier.accessibility.kara"
-				},
-				{
-					"comment": "matches weak, unowned, unowned(safe), unowned(unsafe)",
-					"match": "(?<!\\.)\\bunowned\\((?:safe|unsafe)\\)|(?<!\\.)\\b(?:weak|unowned)\\b",
-					"name": "keyword.other.capture-specifier.kara"
 				},
 				{
 					"captures": {
 						"1": {
 							"name": "keyword.operator.type.kara"
-						},
-						"2": {
-							"name": "keyword.operator.type.metatype.kara"
 						}
 					},
-					"match": "(?<=\\.)(?:(dynamicType|self)|(Protocol|Type))\\b"
+					"match": "(?<=\\.)(?:(dynamicType|self))\\b"
 				},
 				{
 					"match": "(?<!\\.)\\b(?:super|self|Self)\\b",
